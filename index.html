@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SellCraft AI — Zero-Cloud E-Commerce Listing Studio for Side Hustlers</title>
+    <meta name="description" content="Generate high-converting Etsy, eBay, and Shopify listings with local open-source AI. 100% private, zero API fees, and instant profit fee calculator.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-dark">
+    <!-- Top Navigation -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="brand">
+                <span class="brand-icon">⚡</span>
+                <span class="brand-name">SellCraft<span class="brand-accent">AI</span></span>
+                <span class="badge badge-hf">Hacktoberfest 2026</span>
+            </div>
+            <div class="nav-actions">
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text" id="ai-engine-status">Open-Source AI: Ready (Offline)</span>
+                </div>
+                <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle light/dark theme">
+                    <span class="theme-icon">☀️</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-content">
+        <!-- Hero Tagline -->
+        <section class="hero-strip">
+            <div class="hero-inner">
+                <div class="hero-badge">Private • Unlimited • $0 API Costs</div>
+                <h1 class="hero-title">Turn Rough Product Ideas into High-Converting Listings</h1>
+                <p class="hero-subtitle">The privacy-first listing writer & profit calculator for Etsy, eBay, and Shopify side hustlers. Powered by in-browser open-weight intelligence—your inventory and pricing never touch a third-party server.</p>
+            </div>
+        </section>
+
+        <!-- Studio Workspace -->
+        <section class="studio-grid">
+            <!-- Left Column: Input Studio -->
+            <div class="card input-card">
+                <div class="card-header">
+                    <h2><span class="header-icon">📦</span> Product Details</h2>
+                    <span class="pill-tag">Input Studio</span>
+                </div>
+
+                <form id="listing-form" class="studio-form">
+                    <!-- Image Upload -->
+                    <div class="form-group">
+                        <label class="form-label">Product Image (Optional)</label>
+                        <div class="image-dropzone" id="dropzone">
+                            <input type="file" id="image-input" accept="image/*" class="file-input-hidden">
+                            <div class="dropzone-content" id="dropzone-prompt">
+                                <span class="dropzone-icon">📷</span>
+                                <span class="dropzone-text">Drag & drop product photo or <strong>browse</strong></span>
+                                <span class="dropzone-sub">Local visual color & feature preview</span>
+                            </div>
+                            <div class="dropzone-preview hidden" id="dropzone-preview">
+                                <img id="preview-img" src="" alt="Product Preview">
+                                <button type="button" class="btn-remove-img" id="btn-remove-img" aria-label="Remove image">×</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Name -->
+                    <div class="form-group">
+                        <label for="product-name" class="form-label">Product Title / Name *</label>
+                        <input type="text" id="product-name" class="form-input" placeholder="e.g. Handmade Full-Grain Leather Minimalist Wallet" required>
+                    </div>
+
+                    <!-- Category & Platform Grid -->
+                    <div class="form-row">
+                        <div class="form-group flex-1">
+                            <label for="target-platform" class="form-label">Selling Platform</label>
+                            <select id="target-platform" class="form-select">
+                                <option value="etsy">Etsy (Handmade & Vintage)</option>
+                                <option value="ebay">eBay (Auction & Buy It Now)</option>
+                                <option value="shopify">Shopify (DTC Brand)</option>
+                                <option value="amazon">Amazon Handmade</option>
+                                <option value="instagram">Instagram / TikTok Shop</option>
+                            </select>
+                        </div>
+                        <div class="form-group flex-1">
+                            <label for="product-category" class="form-label">Category</label>
+                            <select id="product-category" class="form-select">
+                                <option value="crafts">Handmade Crafts & Gifts</option>
+                                <option value="vintage">Vintage & Thrift Clothing</option>
+                                <option value="jewelry">Jewelry & Accessories</option>
+                                <option value="home">Home Decor & Woodwork</option>
+                                <option value="art">Digital Prints & Art</option>
+                                <option value="tech">Electronics & Gadgets</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Key Attributes -->
+                    <div class="form-group">
+                        <label for="product-features" class="form-label">Key Features & Materials *</label>
+                        <textarea id="product-features" class="form-textarea" rows="3" placeholder="e.g. Veg-tanned brown leather, holds 8 cards, brass snaps, RFID blocking, waxed nylon stitching, compact pocket fit" required></textarea>
+                    </div>
+
+                    <!-- Tone of Voice -->
+                    <div class="form-group">
+                        <label class="form-label">Brand Voice & Style</label>
+                        <div class="tone-chips" id="tone-selector">
+                            <button type="button" class="tone-chip active" data-tone="artisanal">🌿 Artisanal & Cozy</button>
+                            <button type="button" class="tone-chip" data-tone="luxury">✨ Luxury & Premium</button>
+                            <button type="button" class="tone-chip" data-tone="punchy">🔥 High-Converting Sales</button>
+                            <button type="button" class="tone-chip" data-tone="minimalist">📐 Minimalist & Clean</button>
+                        </div>
+                    </div>
+
+                    <!-- Price & Margin Simulator -->
+                    <div class="financials-box">
+                        <div class="financials-header">
+                            <span class="financials-title">💰 Profit & Margin Simulator</span>
+                            <span class="financials-badge" id="net-margin-badge">68% Margin</span>
+                        </div>
+                        <div class="financials-grid">
+                            <div class="form-group">
+                                <label for="selling-price" class="form-label-sm">Selling Price ($)</label>
+                                <input type="number" id="selling-price" class="form-input form-input-sm" value="39.00" min="1" step="0.5">
+                            </div>
+                            <div class="form-group">
+                                <label for="cost-goods" class="form-label-sm">Cost to Make ($)</label>
+                                <input type="number" id="cost-goods" class="form-input form-input-sm" value="9.50" min="0" step="0.5">
+                            </div>
+                            <div class="form-group">
+                                <label for="shipping-cost" class="form-label-sm">Shipping ($)</label>
+                                <input type="number" id="shipping-cost" class="form-input form-input-sm" value="3.50" min="0" step="0.5">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-primary" id="btn-generate">
+                        <span class="btn-icon">⚡</span>
+                        <span class="btn-text" id="generate-btn-text">Generate Studio Listing</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right Column: Results Workbench -->
+            <div class="card output-card">
+                <div class="card-header">
+                    <h2><span class="header-icon">🎯</span> Generated Listing Studio</h2>
+                    <div class="header-actions">
+                        <button type="button" class="btn-action" id="btn-copy-all" title="Copy full listing">📋 Copy All</button>
+                        <button type="button" class="btn-action" id="btn-export-csv" title="Export as CSV">📊 Export CSV</button>
+                    </div>
+                </div>
+
+                <!-- Live Profit Breakdown -->
+                <div class="profit-summary-card">
+                    <div class="profit-stat">
+                        <span class="stat-label">Platform Fees</span>
+                        <span class="stat-value fee-value" id="calc-fees">$2.74</span>
+                        <span class="stat-sub" id="platform-fee-rate">Etsy 6.5% + $0.20</span>
+                    </div>
+                    <div class="profit-stat">
+                        <span class="stat-label">Total Costs</span>
+                        <span class="stat-value" id="calc-total-cost">$15.74</span>
+                        <span class="stat-sub">COGS + Shipping + Fees</span>
+                    </div>
+                    <div class="profit-stat highlight">
+                        <span class="stat-label">Net Profit / Sale</span>
+                        <span class="stat-value profit-value" id="calc-net-profit">+$23.26</span>
+                        <span class="stat-sub" id="calc-margin-percent">59.6% Net Margin</span>
+                    </div>
+                </div>
+
+                <!-- Tabbed Outputs -->
+                <div class="output-sections">
+                    <!-- Optimized SEO Title -->
+                    <div class="result-box">
+                        <div class="result-header">
+                            <span class="result-title">SEO Optimized Title</span>
+                            <span class="char-count" id="title-char-count">0 / 140 chars</span>
+                        </div>
+                        <div class="result-content-wrap">
+                            <div class="result-text" id="out-title">Click "Generate Studio Listing" to generate your high-converting title...</div>
+                            <button type="button" class="btn-copy-sub" data-target="out-title" title="Copy Title">Copy</button>
+                        </div>
+                    </div>
+
+                    <!-- 13 High-Rank SEO Tags / Keywords -->
+                    <div class="result-box">
+                        <div class="result-header">
+                            <span class="result-title">Rank Tags & Search Keywords (<span id="tags-count">0</span> / 13)</span>
+                            <span class="tag-helper">Optimized for algorithm search density</span>
+                        </div>
+                        <div class="tags-container" id="out-tags">
+                            <span class="tag-placeholder">Keywords will appear here as copyable tags...</span>
+                        </div>
+                    </div>
+
+                    <!-- Bullet Points (Key Highlights) -->
+                    <div class="result-box">
+                        <div class="result-header">
+                            <span class="result-title">Bullet Highlights</span>
+                            <button type="button" class="btn-copy-sub" data-target="out-bullets" title="Copy Bullets">Copy</button>
+                        </div>
+                        <ul class="bullets-list" id="out-bullets">
+                            <li class="bullet-placeholder">Handcrafted precision details</li>
+                            <li class="bullet-placeholder">Material specifications & durability</li>
+                            <li class="bullet-placeholder">Gift readiness & packaging</li>
+                        </ul>
+                    </div>
+
+                    <!-- Full Description -->
+                    <div class="result-box">
+                        <div class="result-header">
+                            <span class="result-title">Product Description (Story & Care)</span>
+                            <button type="button" class="btn-copy-sub" data-target="out-desc" title="Copy Description">Copy</button>
+                        </div>
+                        <div class="result-text pre-wrap" id="out-desc">Your engaging, customer-centric product story, sizing specs, care instructions, and call to action will render here.</div>
+                    </div>
+
+                    <!-- Social / Marketing Hook -->
+                    <div class="result-box">
+                        <div class="result-header">
+                            <span class="result-title">Instagram / TikTok Caption & Hashtags</span>
+                            <button type="button" class="btn-copy-sub" data-target="out-social" title="Copy Social Hook">Copy</button>
+                        </div>
+                        <div class="result-text" id="out-social">Social media hook, emojis, and hashtags ready for immediate posting...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Saved Listings History -->
+        <section class="history-section card">
+            <div class="card-header">
+                <h2><span class="header-icon">📂</span> Local Hustle History (Saved In-Browser)</h2>
+                <button type="button" class="btn-action" id="btn-clear-history">Clear History</button>
+            </div>
+            <div class="history-list" id="history-container">
+                <p class="history-empty">No saved listings yet. Generate your first product above to save it locally!</p>
+            </div>
+        </section>
+
+        <!-- Value Proposition Strip: Why Open Innovation Matters -->
+        <section class="open-innovation-strip">
+            <div class="open-inner">
+                <div class="open-col">
+                    <span class="open-icon">🔒</span>
+                    <h3>100% Private Client & Product Data</h3>
+                    <p>Unreleased product designs, proprietary material recipes, and profit margins never leak to external AI providers. Everything computes on your hardware.</p>
+                </div>
+                <div class="open-col">
+                    <span class="open-icon">💸</span>
+                    <h3>$0 Ongoing API or Server Costs</h3>
+                    <p>Side hustlers shouldn't bleed $39/month on subscription SaaS tools before making their first sale. Open-source local inference makes software sustainable forever.</p>
+                </div>
+                <div class="open-col">
+                    <span class="open-icon">✈️</span>
+                    <h3>Offline & Edge Capable</h3>
+                    <p>Flipping goods at flea markets, estate sales, or craft fairs with zero cellular service? SellCraft AI works without any active internet connection.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">Copied to clipboard!</div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <p>Built for the <strong>Hacktoberfest Open-Source AI Challenge: Week 2 (Side Hustle)</strong>.</p>
+            <p class="footer-links">
+                <a href="https://github.com/batu-ta/sellcraft-ai" target="_blank" rel="noopener">GitHub Repository</a> • 
+                <a href="https://dev.to/challenges/hacktoberfest-week2-2026-10-12" target="_blank" rel="noopener">Challenge Details</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
