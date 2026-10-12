@@ -14,6 +14,8 @@ Millions of side hustlers, artisans, and flippers make extra income on Etsy, eBa
 
 **SellCraft AI solves this completely**: An in-browser, privacy-first studio powered by open-source AI principles that runs 100% locally on your machine with **$0 API costs forever**.
 
+🌐 **Live Demo:** [https://fancy-dolphin-8e52aa.netlify.app/](https://fancy-dolphin-8e52aa.netlify.app/)
+
 ---
 
 ## 🚀 Key Features
